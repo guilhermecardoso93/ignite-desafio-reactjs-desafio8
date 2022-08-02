@@ -1,0 +1,88 @@
+@mixin dots($count) {
+  $text-shadow: ();
+
+  @for $i from 0 through $count {
+    $text-shadow: $text-shadow,
+      (-.5+(random()) * 3) + em (-.5+(random()) * 3) + em 7px hsla(random() * 360, 100%, 50%, .9);
+  }
+
+  text-shadow: $text-shadow;
+}
+
+
+
+nav.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  max-width: 24rem;
+  width: 100%;
+
+  padding: 2rem;
+
+  background: linear-gradient(-45deg, var(--background), var(--background2), rgb(172, 170, 170));
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  >span {
+    margin-bottom: 4.5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--yellow);
+
+    p {
+      display: inline;
+      color: var(--white);
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    @mixin buttons-container($width, $color, $duration, $direction){
+      position:relative;
+        &:before{
+          content:'';
+          position:absolute;
+          width:calc(100% + #{$width * 2});
+          height:calc(100% + #{$width * 2});
+          top:calc(#{$width}/-1);
+          left:calc(#{$width}/-1);
+          background:linear-gradient(to right, $color 0%, $color 100%), linear-gradient(to top, $color 50%, transparent 50%), linear-gradient(to top, $color 50%, transparent 50%), linear-gradient(to right, $color 0%, $color 100%), linear-gradient(to left, $color 0%, $color 100%);
+          background-size:100% $width, $width 200%, $width 200%, 0% $width, 0% $width;
+          background-position:50% 100%, 0% 0%, 100% 0%, 100% 0%, 0% 0%;
+          background-repeat:no-repeat, no-repeat;
+          transition:transform $duration ease-in-out, background-position $duration ease-in-out, background-size $duration ease-in-out;
+          transform:scaleX(0) rotate(180deg * $direction);
+          transition-delay:$duration*2, $duration, 0s;
+        }
+        &:hover{
+          &:before{
+            background-size:200% $width, $width 400%, $width 400%, 55% $width, 55% $width;
+            background-position:50% 100%, 0% 100%, 100% 100%, 100% 0%, 0% 0%;
+            transform:scaleX(1) rotate(180deg * $direction);
+            transition-delay:0s, $duration, $duration*2;
+          }
+        }
+    }
+  }
+}

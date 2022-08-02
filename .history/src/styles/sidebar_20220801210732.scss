@@ -1,0 +1,104 @@
+@mixin dots($count) {
+  $text-shadow: ();
+
+  @for $i from 0 through $count {
+    $text-shadow: $text-shadow,
+      (-.5+(random()) * 3) + em (-.5+(random()) * 3) + em 7px hsla(random() * 360, 100%, 50%, .9);
+  }
+
+  text-shadow: $text-shadow;
+}
+
+
+
+nav.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  max-width: 24rem;
+  width: 100%;
+
+  padding: 2rem;
+
+  background: linear-gradient(-45deg, var(--background), var(--background2), rgb(172, 170, 170));
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  >span {
+    margin-bottom: 4.5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--yellow);
+
+    p {
+      display: inline;
+      color: var(--white);
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+
+  }
+}
+
+.buttos-container::before, .buttos-container::after {
+  position: absolute;
+  background: #eee;
+  z-index: -1;
+  transition: 1s;
+  content: '';
+}
+
+.buttos-container::before {
+  height: 50px;
+  width: 130px;
+}
+
+.buttos-container::after {
+  width: 150px;
+  height: 30px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.buttos-container:hover::before {
+  width: 0px;
+  background: #fff;
+}
+
+.buttos-container:hover::after {
+  height: 0px;
+  background: #fff;
+}
+
+.buttos-container:hover {
+  background: #fff;
+}
